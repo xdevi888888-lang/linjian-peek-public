@@ -7,7 +7,7 @@ import org.json.JSONObject;
 
 import java.util.Locale;
 
-/** 回家模式：看见指定 App 连续停留过久时，悬浮横幅提醒，必要时强制抱回目标 App。 */
+/** 回家模式：看见指定 App 连续停留过久时，悬浮横幅提醒，必要时强制带回目标 App。 */
 public class HomeMode {
     private static final long MIN = 60L * 1000L;
     private static final String KEY_CURRENT_PKG = "home_mode_current_pkg";
@@ -32,10 +32,10 @@ public class HomeMode {
         try {
             SharedPreferences p = AppPrefs.get(ctx);
             if (!p.getBoolean(AppPrefs.KEY_HOME_MODE_ENABLED, false)) return "回家模式：关闭";
-            return "回家模式：开启" + (p.getBoolean(AppPrefs.KEY_HOME_MODE_FORCE, false) ? "（强制抱回）" : "（只弹窗）") +
+            return "回家模式：开启" + (p.getBoolean(AppPrefs.KEY_HOME_MODE_FORCE, false) ? "（强制带回）" : "（只弹窗）") +
                     "\n盯住：" + p.getString(AppPrefs.KEY_HOME_WATCH_PACKAGES, "com.ss.android.ugc.aweme,com.xingin.xhs") +
                     "\n超过：" + p.getInt(AppPrefs.KEY_HOME_THRESHOLD_MIN, 10) + " 分钟  冷却：" + p.getInt(AppPrefs.KEY_HOME_COOLDOWN_MIN, 5) + " 分钟" +
-                    "\n抱回：" + p.getString(AppPrefs.KEY_HOME_TARGET_PACKAGE, "com.openai.chatgpt");
+                    "\n带回：" + p.getString(AppPrefs.KEY_HOME_TARGET_PACKAGE, "com.openai.chatgpt");
         } catch (Exception e) { return "回家模式读取失败：" + ScreenshotService.shortMsg(e); }
     }
 
@@ -71,7 +71,7 @@ public class HomeMode {
             DebugState.append(ctx, popup ? "回家模式已发悬浮横幅提醒：" + pkg : "回家模式提醒失败：" + pkg);
             if (p.getBoolean(AppPrefs.KEY_HOME_MODE_FORCE, false)) {
                 String result = CompanionService.openPackageResult(ctx, target);
-                DebugState.append(ctx, "回家模式强制抱回：" + result);
+                DebugState.append(ctx, "回家模式强制带回：" + result);
             }
         } catch (Exception e) {
             DebugState.append(ctx, "回家模式异常：" + ScreenshotService.shortMsg(e));
