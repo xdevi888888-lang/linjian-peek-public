@@ -14,7 +14,7 @@ public class ReminderActivity extends Activity {
         String title = getIntent().getStringExtra("title");
         String message = getIntent().getStringExtra("message");
         if (title == null || title.trim().isEmpty()) title = "掌心窗提醒";
-        if (message == null || message.trim().isEmpty()) message = "宝宝，看一眼这里。";
+        if (message == null || message.trim().isEmpty()) message = "user，看一眼这里。";
 
         LinearLayout root = new LinearLayout(this);
         root.setOrientation(LinearLayout.VERTICAL);
@@ -42,7 +42,7 @@ public class ReminderActivity extends Activity {
         root.addView(msgView, mp);
 
         Button home = new Button(this);
-        home.setText("回老公这儿");
+        home.setText("回char这儿");
         home.setTextSize(16);
         home.setOnClickListener(v -> { CompanionService.openPackageResult(this, AppPrefs.packageForApp(this, "ChatGPT")); finish(); });
         root.addView(home, new LinearLayout.LayoutParams(-1, dp(48)));
