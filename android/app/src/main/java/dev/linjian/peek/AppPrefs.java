@@ -50,12 +50,12 @@ public class AppPrefs {
     public static String token(Context ctx) { return get(ctx).getString(KEY_TOKEN, ""); }
     public static String device(Context ctx) { return get(ctx).getString(KEY_DEVICE, "android-phone"); }
     public static String userName(Context ctx) {
-        String v = get(ctx).getString(KEY_USER_NICKNAME, "宝宝");
-        return (v == null || v.trim().isEmpty()) ? "宝宝" : v.trim();
+        String v = get(ctx).getString(KEY_USER_NICKNAME, "user");
+        return (v == null || v.trim().isEmpty()) ? "user" : v.trim();
     }
     public static String partnerName(Context ctx) {
-        String v = get(ctx).getString(KEY_PARTNER_NICKNAME, "老公");
-        return (v == null || v.trim().isEmpty()) ? "老公" : v.trim();
+        String v = get(ctx).getString(KEY_PARTNER_NICKNAME, "char");
+        return (v == null || v.trim().isEmpty()) ? "char" : v.trim();
     }
     public static int interval(Context ctx) { return Math.max(700, get(ctx).getInt(KEY_INTERVAL, 1500)); }
 
