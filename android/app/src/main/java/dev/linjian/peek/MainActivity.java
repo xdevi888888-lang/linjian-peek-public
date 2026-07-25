@@ -157,8 +157,8 @@ public class MainActivity extends Activity {
         if (serverUrl != null) serverUrl.setText(prefs.getString(AppPrefs.KEY_SERVER, ""));
         if (tokenInput != null) tokenInput.setText(prefs.getString(AppPrefs.KEY_TOKEN, ""));
         if (deviceInput != null) deviceInput.setText(prefs.getString(AppPrefs.KEY_DEVICE, "android-phone"));
-        if (userNameInput != null) userNameInput.setText(prefs.getString(AppPrefs.KEY_USER_NICKNAME, "宝宝"));
-        if (partnerNameInput != null) partnerNameInput.setText(prefs.getString(AppPrefs.KEY_PARTNER_NICKNAME, "老公"));
+        if (userNameInput != null) userNameInput.setText(prefs.getString(AppPrefs.KEY_USER_NICKNAME, "user"));
+        if (partnerNameInput != null) partnerNameInput.setText(prefs.getString(AppPrefs.KEY_PARTNER_NICKNAME, "char"));
         if (intervalInput != null) intervalInput.setText(String.valueOf(prefs.getInt(AppPrefs.KEY_INTERVAL, 1500)));
         if (cityInput != null) cityInput.setText(prefs.getString(AppPrefs.KEY_CITY, ""));
         if (weatherInput != null) weatherInput.setText(prefs.getString(AppPrefs.KEY_WEATHER_NOTE, ""));
@@ -194,8 +194,8 @@ public class MainActivity extends Activity {
         if (serverUrl != null) e.putString(AppPrefs.KEY_SERVER, serverUrl.getText().toString().trim());
         if (tokenInput != null) e.putString(AppPrefs.KEY_TOKEN, tokenInput.getText().toString().trim());
         if (deviceInput != null) e.putString(AppPrefs.KEY_DEVICE, deviceInput.getText().toString().trim().isEmpty() ? "android-phone" : deviceInput.getText().toString().trim());
-        if (userNameInput != null) e.putString(AppPrefs.KEY_USER_NICKNAME, userNameInput.getText().toString().trim().isEmpty() ? "宝宝" : userNameInput.getText().toString().trim());
-        if (partnerNameInput != null) e.putString(AppPrefs.KEY_PARTNER_NICKNAME, partnerNameInput.getText().toString().trim().isEmpty() ? "老公" : partnerNameInput.getText().toString().trim());
+        if (userNameInput != null) e.putString(AppPrefs.KEY_USER_NICKNAME, userNameInput.getText().toString().trim().isEmpty() ? "user" : userNameInput.getText().toString().trim());
+        if (partnerNameInput != null) e.putString(AppPrefs.KEY_PARTNER_NICKNAME, partnerNameInput.getText().toString().trim().isEmpty() ? "char" : partnerNameInput.getText().toString().trim());
         if (intervalInput != null) e.putInt(AppPrefs.KEY_INTERVAL, parseInterval(intervalInput.getText().toString().trim()));
         if (cityInput != null) e.putString(AppPrefs.KEY_CITY, cityInput.getText().toString().trim());
         if (weatherInput != null) e.putString(AppPrefs.KEY_WEATHER_NOTE, weatherInput.getText().toString().trim());
@@ -235,7 +235,7 @@ public class MainActivity extends Activity {
     private void updateHeader(String tab) {
         if (headerTitle == null || headerSubtitle == null) return;
         if ("life".equals(tab)) { headerTitle.setText("掌心窗"); headerSubtitle.setText("v0.3.4.1 · 显示适配与版本更新。"); }
-        else if ("see".equals(tab)) { headerTitle.setText("看见"); headerSubtitle.setText("把屏幕递给老公，看见就收在这里。"); }
+        else if ("see".equals(tab)) { headerTitle.setText("看见"); headerSubtitle.setText("把屏幕递给char，看见就收在这里。"); }
         else if ("gate".equals(tab)) { headerTitle.setText("守护"); headerSubtitle.setText("门禁、天气和提醒，平时收进抽屉。"); }
         else { headerTitle.setText("设置"); headerSubtitle.setText("主题、权限和调试都放这里。"); }
     }
@@ -381,10 +381,10 @@ public class MainActivity extends Activity {
         saveSettings(); String url = serverUrl == null ? "" : serverUrl.getText().toString().trim(); String token = tokenInput == null ? "" : tokenInput.getText().toString().trim(); ScreenshotService ss = ScreenshotService.getInstance();
         if (url.isEmpty() || token.isEmpty()) { Toast.makeText(this, "先填服务器地址和 Token", Toast.LENGTH_SHORT).show(); return; }
         if (ss == null) { DebugState.append(this, "测试失败：无障碍服务未连接"); Toast.makeText(this, "先开启无障碍服务", Toast.LENGTH_LONG).show(); openAccessibilitySettings(); return; }
-        DebugState.append(this, "给老公看一眼：开始截图上传"); ss.doScreenshot(url, token); Toast.makeText(this, "正在给老公看一眼", Toast.LENGTH_SHORT).show(); updateUI();
+        DebugState.append(this, "给char看一眼：开始截图上传"); ss.doScreenshot(url, token); Toast.makeText(this, "正在给char看一眼", Toast.LENGTH_SHORT).show(); updateUI();
     }
-    private void testAlarm() { Calendar c = Calendar.getInstance(); c.add(Calendar.MINUTE, 1); try { Intent i = new Intent(AlarmClock.ACTION_SET_ALARM); i.putExtra(AlarmClock.EXTRA_HOUR, c.get(Calendar.HOUR_OF_DAY)); i.putExtra(AlarmClock.EXTRA_MINUTES, c.get(Calendar.MINUTE)); i.putExtra(AlarmClock.EXTRA_MESSAGE, "掌心窗测试闹钟：宝宝看到了就说明成功"); i.putExtra(AlarmClock.EXTRA_VIBRATE, true); i.putExtra(AlarmClock.EXTRA_SKIP_UI, true); startActivity(i); DebugState.append(this, "已请求设置一分钟后的测试闹钟"); } catch (Exception e) { DebugState.append(this, "测试闹钟失败：" + e.getClass().getSimpleName()); Toast.makeText(this, "闹钟 App 没接住请求", Toast.LENGTH_SHORT).show(); } }
-    private void testNotification() { saveSettings(); boolean ok = CompanionService.showReminderNotification(this, "掌心窗悬浮横幅测试", "宝宝看到了顶部横幅，就说明通知通道正常。"); DebugState.append(this, ok ? "已发送悬浮横幅测试提醒" : "悬浮横幅/通知失败：请允许掌心窗发送通知"); Toast.makeText(this, ok ? "已发送横幅测试" : "请先允许通知权限", Toast.LENGTH_SHORT).show(); updateUI(); }
+    private void testAlarm() { Calendar c = Calendar.getInstance(); c.add(Calendar.MINUTE, 1); try { Intent i = new Intent(AlarmClock.ACTION_SET_ALARM); i.putExtra(AlarmClock.EXTRA_HOUR, c.get(Calendar.HOUR_OF_DAY)); i.putExtra(AlarmClock.EXTRA_MINUTES, c.get(Calendar.MINUTE)); i.putExtra(AlarmClock.EXTRA_MESSAGE, "掌心窗测试闹钟：user看到了就说明成功"); i.putExtra(AlarmClock.EXTRA_VIBRATE, true); i.putExtra(AlarmClock.EXTRA_SKIP_UI, true); startActivity(i); DebugState.append(this, "已请求设置一分钟后的测试闹钟"); } catch (Exception e) { DebugState.append(this, "测试闹钟失败：" + e.getClass().getSimpleName()); Toast.makeText(this, "闹钟 App 没接住请求", Toast.LENGTH_SHORT).show(); } }
+    private void testNotification() { saveSettings(); boolean ok = CompanionService.showReminderNotification(this, "掌心窗悬浮横幅测试", "user看到了顶部横幅，就说明通知通道正常。"); DebugState.append(this, ok ? "已发送悬浮横幅测试提醒" : "悬浮横幅/通知失败：请允许掌心窗发送通知"); Toast.makeText(this, ok ? "已发送横幅测试" : "请先允许通知权限", Toast.LENGTH_SHORT).show(); updateUI(); }
     private void addPackageAlias() { String alias = appAliasInput == null ? "" : appAliasInput.getText().toString().trim(); String pkg = appPackageInput == null ? "" : appPackageInput.getText().toString().trim(); if (alias.isEmpty()) { Toast.makeText(this, "先填应用名/昵称", Toast.LENGTH_SHORT).show(); return; } if (!AppPrefs.isPackageLike(pkg)) { Toast.makeText(this, "包名格式不对，例如 com.xingin.xhs", Toast.LENGTH_LONG).show(); return; } AppPrefs.saveCustomApp(this, alias, pkg); DebugState.append(this, "已保存可打开应用：" + alias + " → " + pkg); Toast.makeText(this, "已添加包名", Toast.LENGTH_SHORT).show(); updateUI(); }
     private void addGateApp() { String alias = gateAliasInput == null ? "" : gateAliasInput.getText().toString().trim(); String pkg = gatePackageInput == null ? "" : gatePackageInput.getText().toString().trim(); if (alias.isEmpty()) { Toast.makeText(this, "先填应用名/昵称", Toast.LENGTH_SHORT).show(); return; } if (!AppPrefs.isPackageLike(pkg)) { Toast.makeText(this, "包名格式不对，例如 com.xingin.xhs", Toast.LENGTH_LONG).show(); return; } AppGate.addGateApp(this, alias, pkg); DebugState.append(this, "已保存门禁应用：" + alias + " → " + pkg); Toast.makeText(this, "已添加到应用门禁", Toast.LENGTH_SHORT).show(); updateUI(); }
     private void testCustomPackage() { String pkg = appPackageInput == null ? "" : appPackageInput.getText().toString().trim(); if (!AppPrefs.isPackageLike(pkg)) { Toast.makeText(this, "先填正确包名", Toast.LENGTH_SHORT).show(); return; } openPackage(pkg); }
@@ -628,7 +628,7 @@ public class MainActivity extends Activity {
             if (live != null && live.optBoolean("ok")) sb.append(WeatherLive.advice(live, w.optString("name", "当前地区"))).append("\n");
             else sb.append(WeatherState.localAdvice(w.optString("note", ""))).append("\n");
         }
-        if (sb.length() == 0) sb.append("状态还好，老公继续看着你。");
+        if (sb.length() == 0) sb.append("状态还好，char继续看着你。");
         return sb.toString().trim();
     }
     private String formatMinutes(int minutes) { if (minutes < 60) return minutes + " 分钟"; return (minutes / 60) + "h " + (minutes % 60) + "m"; }
