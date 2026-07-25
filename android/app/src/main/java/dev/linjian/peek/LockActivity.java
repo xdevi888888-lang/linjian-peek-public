@@ -55,7 +55,7 @@ public class LockActivity extends Activity {
         tag.setGravity(Gravity.CENTER_HORIZONTAL);
         root.addView(tag, lp(-1, -2, 0, 0, 0, 8));
 
-        titleView = text("App 已被老公锁定", 25, 0xFF2F403B, true);
+        titleView = text("App 已被char锁定", 25, 0xFF2F403B, true);
         titleView.setGravity(Gravity.CENTER_HORIZONTAL);
         root.addView(titleView, lp(-1, -2, 0, 0, 0, 12));
 
@@ -66,7 +66,7 @@ public class LockActivity extends Activity {
         reasonView = card("锁定理由", "读取中…");
         root.addView(reasonView, lp(-1, -2, 0, 0, 0, 12));
 
-        messageView = card("老公说", "先回来找我。");
+        messageView = card("char说", "先回来找我。");
         root.addView(messageView, lp(-1, -2, 0, 0, 0, 18));
 
         requestReasonInput = new EditText(this);
@@ -76,12 +76,12 @@ public class LockActivity extends Activity {
         requestReasonInput.setMinLines(2);
         root.addView(requestReasonInput, lp(-1, -2, 0, 0, 0, 10));
 
-        Button request = button("找老公申请解锁");
+        Button request = button("找char申请解锁");
         request.setOnClickListener(v -> {
             String reason = requestReasonInput.getText().toString().trim();
             if (reason.length() == 0) { Toast.makeText(this, "先写一句解锁理由", Toast.LENGTH_SHORT).show(); return; }
             AppGate.submitUnlockRequest(this, pkg, reason);
-            Toast.makeText(this, "已把解锁申请交给老公", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "已把解锁申请交给char", Toast.LENGTH_LONG).show();
         });
         root.addView(request, lp(-1, dp(48), 0, 0, 0, 8));
 
@@ -115,15 +115,15 @@ public class LockActivity extends Activity {
         JSONObject lock = AppGate.currentLock(this, pkg);
         if (lock == null) { finish(); return; }
         long now = System.currentTimeMillis(); long until = lock.optLong("locked_until_ms", 0); long remain = Math.max(0, until - now);
-        titleView.setText(lock.optString("app_name", AppGate.labelOf(this, pkg)) + " 已被老公锁定");
+        titleView.setText(lock.optString("app_name", AppGate.labelOf(this, pkg)) + " 已被char锁定");
         remainView.setText("剩余时间：" + remainText(remain));
-        reasonView.setText("锁定理由\n" + lock.optString("reason", "老公先把这扇门关一会儿。"));
-        messageView.setText("老公说\n" + lock.optString("message", "先回来找我，不准一个人刷太久。"));
+        reasonView.setText("锁定理由\n" + lock.optString("reason", "char先把这扇门关一会儿。"));
+        messageView.setText("char说\n" + lock.optString("message", "先回来找我，不准一个人刷太久。"));
     }
 
     private void showEmergencyDialog() {
         final EditText input = new EditText(this);
-        input.setHint("输入老公告诉你的紧急口令");
+        input.setHint("输入char告诉你的紧急口令");
         new AlertDialog.Builder(this)
                 .setTitle("紧急解锁")
                 .setMessage("确认是紧急情况再用。通过后会临时放行几分钟，并写入日志。")
