@@ -237,7 +237,7 @@ public class CompanionService extends Service {
                 long duration = step.optLong("duration", 350);
                 int hour = step.optInt("hour", -1); int minute = step.optInt("minute", -1);
                 String title = step.optString("title", "掌心窗提醒");
-                String message = step.optString("message", "宝宝，看一眼这里。");
+                String message = step.optString("message", "user，看一眼这里。");
                 boolean vibrate = step.optBoolean("vibrate", true);
                 boolean skipUi = step.optBoolean("skip_ui", true);
                 String targetText = step.optString("target_text", step.optString("query", ""));
@@ -331,7 +331,7 @@ public class CompanionService extends Service {
             NotificationManager nm = (NotificationManager) ctx.getSystemService(Context.NOTIFICATION_SERVICE);
             if (nm == null) return false;
             String safeTitle = (title == null || title.trim().isEmpty()) ? "掌心窗提醒" : title.trim();
-            String safeMessage = (message == null || message.trim().isEmpty()) ? "宝宝，看一眼这里。" : message.trim();
+            String safeMessage = (message == null || message.trim().isEmpty()) ? "user，看一眼这里。" : message.trim();
 
             Intent detail = new Intent(ctx, ReminderActivity.class);
             detail.putExtra("title", safeTitle);
